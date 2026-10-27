@@ -1,0 +1,238 @@
+:root {
+    --bg-main: #fff0f5;
+    --bg-card: #ffffff;
+    --primary: #d87093;
+    --primary-hover: #c71585;
+    --text-main: #4a4a4a;
+    --text-secondary: #888888;
+    --border-color: #ffb6c1;
+}
+
+[data-theme="dark"] {
+    --bg-main: #121212;
+    --bg-card: #1e1e1e;
+    --text-main: #e0e0e0;
+    --text-secondary: #aaaaaa;
+    --border-color: #333333;
+    --primary: #ff69b4;
+    --primary-hover: #ff1493;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    width: 100%;
+}
+
+/* Шапка сайта */
+header {
+    background-color: var(--bg-card);
+    border-bottom: 2px solid var(--border-color);
+    padding: 15px 0;
+    box-shadow: 0 2px 5px rgba(219, 112, 147, 0.1);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.lang-switcher a {
+    color: var(--text-main);
+    text-decoration: none;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.lang-switcher a:hover {
+    background: var(--bg-main);
+    color: var(--primary);
+}
+
+.user-menu a, .user-menu span {
+    color: var(--text-main);
+    text-decoration: none;
+    margin-left: 15px;
+    font-weight: 500;
+}
+
+.user-menu a:hover {
+    color: var(--primary);
+}
+
+/* Кнопка переключения темы */
+#theme-toggle {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    padding: 6px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+#theme-toggle:hover {
+    background: var(--primary);
+    color: #ffffff;
+    border-color: var(--primary);
+}
+
+/* Категории (кнопки-табы) */
+.categories-list {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+}
+
+.category-pill {
+    background-color: var(--bg-card);
+    color: var(--primary);
+    border: 1px solid var(--border-color);
+    padding: 8px 16px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.category-pill:hover, .category-pill.active {
+    background-color: var(--primary);
+    color: #ffffff;
+    border-color: var(--primary);
+}
+
+/* Кнопки */
+.btn {
+    display: inline-block;
+    background-color: var(--primary);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn:hover {
+    background-color: var(--primary-hover);
+}
+
+/* Карточки услуг и контейнеры */
+.service-card, .form-container {
+    background-color: var(--bg-card) !important;
+    color: var(--text-main) !important;
+    border-color: var(--border-color) !important;
+}
+
+/* Футер */
+footer {
+    background-color: var(--bg-card);
+    border-top: 1px solid var(--border-color);
+    text-align: center;
+    padding: 20px 0;
+    color: var(--text-secondary);
+    margin-top: auto;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Контейнер и стили для форм добавления/редактирования */
+.form-container {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 30px;
+    max-width: 800px;
+    margin: 20px auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+}
+
+.salon-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.salon-form label {
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: 5px;
+}
+
+.salon-form input[type="text"],
+.salon-form input[type="number"],
+.salon-form select,
+.salon-form textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.salon-form textarea {
+    resize: vertical;
+}
+
+.salon-form input:focus,
+.salon-form select:focus,
+.salon-form textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.back-link {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
