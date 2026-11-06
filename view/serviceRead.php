@@ -21,10 +21,10 @@ ob_start();
     <p style="font-size: 16px; line-height: 1.6; color: var(--text-main);"><?= htmlspecialchars($service['description']) ?></p>
     
     <p style="margin-top: 15px; font-size: 18px;">
-        Цена: <strong><?= $service['price'] ?> €</strong>
+        <?= $lang['price'] ?? 'Цена' ?>: <strong><?= $service['price'] ?> €</strong>
     </p>
     <p style="font-size: 18px;">
-        Длительность: <strong><?= $service['duration'] ?> мин</strong>
+        <?= $lang['duration'] ?? 'Длительность' ?>: <strong><?= $service['duration'] ?> <?= $lang['min'] ?? 'мин' ?></strong>
     </p>
 
     <!-- Блок записи отображается только для клиентов и гостей, но скрыт для администратора -->
@@ -34,7 +34,9 @@ ob_start();
                 <a href="index.php?action=book&id=<?= $service['id'] ?>" class="btn"><?= $lang['book_btn'] ?? 'Записаться на процедуру' ?></a>
             <?php else: ?>
                 <p style="color: var(--text-secondary);">
-                    <a href="index.php?action=login" style="color: var(--primary); font-weight: 600;"><?= $lang['login'] ?? 'Войдите' ?></a>, чтобы записаться на процедуру.
+                    <a href="index.php?action=book&id=<?= $service['id'] ?>" class="btn">
+    <?= $lang['book_btn'] ?? 'Записаться на процедуру' ?>
+</a>
                 </p>
             <?php endif; ?>
         </div>

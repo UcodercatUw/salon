@@ -23,6 +23,7 @@ return [
     'date' => 'Kuupäev',
     'status' => 'Staatus',
     'no_bookings' => 'Teil pole veel broneeringuid.',
+    'back_to_services' => 'Tagasi teenuste loendisse',
     'back_home' => '← Avalehele',
     'min' => 'min',
     'admin_services_title' => 'Salongi teenuste haldus',
@@ -55,6 +56,7 @@ return [
     'enrollment_date' => 'Broneeringu kuupäev',
     'confirm_delete_enrollment' => 'Oled kindel, et soovid selle broneeringu kustutada?',
     'no_enrollments' => 'Broneeringuid pole veel',
+    'book_btn' => 'Broneeri aeg',
 
     // Teenuste kategooriad
     'cat_1' => 'Juuksuriteenused',

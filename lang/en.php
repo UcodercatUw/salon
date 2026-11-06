@@ -23,6 +23,7 @@ return [
     'date' => 'Date',
     'status' => 'Status',
     'no_bookings' => 'You have no bookings yet.',
+    'back_to_services' => 'Back to services list',
     'back_home' => '← Home',
     'min' => 'min',
     'admin_services_title' => 'Salon Services Management',
@@ -55,6 +56,7 @@ return [
     'enrollment_date' => 'Enrollment Date',
     'confirm_delete_enrollment' => 'Are you sure you want to delete this enrollment?',
     'no_enrollments' => 'No enrollments yet',
+    'book_btn' => 'Book appointment',
 
     // Service Categories
     'cat_1' => 'Hairdressing Services',
