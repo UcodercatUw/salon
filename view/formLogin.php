@@ -34,6 +34,14 @@ ob_start();
 
         <button type="submit" class="btn" style="width: 100%;"><?= $lang['login_btn'] ?? 'Войти' ?></button>
     </form>
+
+    <!-- Ссылка для перехода на форму регистрации -->
+    <p style="text-align: center; margin-top: 20px; color: var(--text-secondary); font-size: 14px;">
+        <?= $lang['no_account'] ?? 'Нет аккаунта?' ?> 
+        <a href="index.php?action=register" style="color: var(--primary); font-weight: 600; text-decoration: none;">
+            <?= $lang['register_btn'] ?? 'Зарегистрироваться' ?>
+        </a>
+    </p>
 </div>
 
 <?php

@@ -47,6 +47,8 @@ return [
     'save_changes' => 'Salvesta muudatused',
     'save_service' => 'Salvesta teenus',
     'back_to_list' => 'Tagasi nimekirja',
+    'no_account' => 'Pole kontot?',
+    'already_have_account' => 'Konto on juba olemas?',
 
     // Klientide broneeringud
     'admin_enrollments_title' => 'Klientide broneeringute haldus',

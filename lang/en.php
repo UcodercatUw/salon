@@ -47,6 +47,8 @@ return [
     'save_changes' => 'Save Changes',
     'save_service' => 'Save Service',
     'back_to_list' => 'Back to List',
+    'no_account' => "Don't have an account?",
+    'already_have_account' => 'Already have an account?',
 
     // Client Enrollments
     'admin_enrollments_title' => 'Client Enrollments Management',

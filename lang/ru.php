@@ -47,6 +47,8 @@ return [
     'save_changes' => 'Сохранить изменения',
     'save_service' => 'Сохранить услугу',
     'back_to_list' => 'Вернуться к списку',
+    'no_account' => 'Нет аккаунта?',
+    'already_have_account' => 'Уже есть аккаунт?',
     
     // Записи клиентов
     'admin_enrollments_title' => 'Управление записями клиентов',
