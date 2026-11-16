@@ -15,6 +15,7 @@ class ControllerAdminServices {
     public function add() {
         $serviceModel = new ModelServices();
         $categories = $serviceModel->getCategories();
+        $masters = $serviceModel->getMasterNames();
 
         $error = '';
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -23,6 +24,7 @@ class ControllerAdminServices {
             $description = trim($_POST['description']);
             $price = $_POST['price'];
             $duration = $_POST['duration'];
+            $master_name = trim($_POST['master_name'] ?? '');
 
             // Загрузка изображения по умолчанию
             $imageName = 'default.jpg';
@@ -52,7 +54,7 @@ class ControllerAdminServices {
 
             if (empty($error)) {
                 $model = new ModelAdminServices();
-                if ($model->addService($category_id, $title, $description, $price, $duration, $imageName)) {
+                if ($model->addService($category_id, $title, $description, $price, $duration, $imageName, $master_name)) {
                     header('Location: index.php');
                     exit;
                 } else {
@@ -76,6 +78,7 @@ class ControllerAdminServices {
 
         $serviceModel = new ModelServices();
         $categories = $serviceModel->getCategories();
+        $masters = $serviceModel->getMasterNames();
 
         $error = '';
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -84,7 +87,8 @@ class ControllerAdminServices {
             $description = trim($_POST['description']);
             $price = $_POST['price'];
             $duration = $_POST['duration'];
-            
+            $master_name = trim($_POST['master_name'] ?? '');
+
             // Старое имя изображения остается, если новое не было выбрано
             $imageName = $service['image'];
 
@@ -112,7 +116,7 @@ class ControllerAdminServices {
             }
 
             if (empty($error)) {
-                if ($model->updateService($id, $category_id, $title, $description, $price, $duration, $imageName)) {
+                if ($model->updateService($id, $category_id, $title, $description, $price, $duration, $imageName, $master_name)) {
                     header('Location: index.php');
                     exit;
                 } else {

@@ -39,6 +39,16 @@ ob_start();
         </div>
 
         <div>
+            <label><?= $lang['master_label'] ?? 'Мастер услуги:' ?></label>
+            <input type="text" name="master_name" list="masters-list" value="<?= htmlspecialchars($service['master_name'] ?? '') ?>" placeholder="<?= $lang['master_placeholder'] ?? 'Имя мастера' ?>">
+            <datalist id="masters-list">
+                <?php foreach (($masters ?? []) as $m): ?>
+                    <option value="<?= htmlspecialchars($m) ?>"></option>
+                <?php endforeach; ?>
+            </datalist>
+        </div>
+
+        <div>
             <label><?= $lang['description_label'] ?? 'Описание:' ?></label>
             <textarea name="description" rows="4"><?= htmlspecialchars($service['description']) ?></textarea>
         </div>

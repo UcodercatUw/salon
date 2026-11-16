@@ -26,6 +26,10 @@ switch ($action) {
         $serviceController->myBookings();
         break;
 
+    case 'submit_rating':
+        $serviceController->submitRating();
+        break;
+
     case 'login':
     case 'register':
     case 'logout':

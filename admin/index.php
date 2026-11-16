@@ -23,13 +23,13 @@ if (isset($_GET['lang']) && in_array($_GET['lang'], ['et', 'ru', 'en'])) {
 // Установка языка по умолчанию
 $langCode = $_SESSION['lang'] ?? 'et';
 
-// 2. Проверка прав администратора[cite: 17]
+// 2. Проверка прав администратора
 if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'admin') {
     header('Location: ../index.php');
     exit;
 }
 
-// 3. Получение действия и ID из GET-параметров[cite: 17]
+// 3. Получение действия и ID из GET-параметров
 $action = isset($_GET['action']) ? $_GET['action'] : 'services';
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
@@ -59,6 +59,18 @@ switch ($action) {
         $controller = new ControllerAdminClients();
         
         if ($action === 'delete_enrollment' && $id > 0) {
+            $controller->delete($id);
+        } else {
+            $controller->index();
+        }
+        break;
+
+    case 'ratings':
+    case 'delete_rating':
+        require_once __DIR__ . '/controllerAdmin/ControllerAdminRatings.php';
+        $controller = new ControllerAdminRatings();
+        
+        if ($action === 'delete_rating' && $id > 0) {
             $controller->delete($id);
         } else {
             $controller->index();

@@ -25,6 +25,7 @@ ob_start();
                 <th style="padding: 12px;">ID</th>
                 <th style="padding: 12px;"><?= $lang['category'] ?? 'Категория' ?></th>
                 <th style="padding: 12px;"><?= $lang['title'] ?? 'Название' ?></th>
+                <th style="padding: 12px;"><?= $lang['master'] ?? 'Мастер' ?></th>
                 <th style="padding: 12px;"><?= $lang['price'] ?? 'Цена' ?></th>
                 <th style="padding: 12px;"><?= $lang['duration'] ?? 'Длительность' ?></th>
                 <th style="padding: 12px;"><?= $lang['actions'] ?? 'Действия' ?></th>
@@ -49,6 +50,7 @@ ob_start();
                             ?>
                         </td>
                         <td style="padding: 12px;"><strong><?= htmlspecialchars($service['title']) ?></strong></td>
+                        <td style="padding: 12px;"><?= !empty($service['master_name']) ? htmlspecialchars($service['master_name']) : '—' ?></td>
                         <td style="padding: 12px;"><?= $service['price'] ?> €</td>
                         <td style="padding: 12px;"><?= $service['duration'] ?> <?= $lang['min'] ?? 'мин' ?></td>
                         <td style="padding: 12px;">
@@ -59,7 +61,7 @@ ob_start();
                 <?php endforeach; ?>
             <?php else: ?>
                 <tr>
-                    <td colspan="7" style="padding: 20px; text-align: center; color: var(--text-secondary);"><?= $lang['no_services'] ?? 'Услуг пока нет' ?></td>
+                    <td colspan="8" style="padding: 20px; text-align: center; color: var(--text-secondary);"><?= $lang['no_services'] ?? 'Услуг пока нет' ?></td>
                 </tr>
             <?php endif; ?>
         </tbody>

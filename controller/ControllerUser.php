@@ -26,7 +26,7 @@ class ControllerUser {
                     if ($isValid) {
                         $_SESSION['user_id'] = $user['id'];
                         $_SESSION['username'] = $user['login'] ?? $user['username'];
-                        $_SESSION['status'] = $user['status'] ?? 'client';
+                        $_SESSION['status'] = $user['status'] ?? 'user';
                         
                         header('Location: index.php');
                         exit;

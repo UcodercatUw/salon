@@ -55,6 +55,7 @@ $getEn = $_GET; $getEn['lang'] = 'en'; $urlEn = 'index.php?' . http_build_query(
                 <div class="user-menu">
                     <a href="index.php?action=services"><?= $lang['admin_services'] ?? 'Teenused' ?></a>
                     <a href="index.php?action=clients"><?= $lang['admin_clients'] ?? 'Kliendiandmed' ?></a>
+                    <a href="index.php?action=ratings"><?= $lang['admin_ratings'] ?? 'Hinnangud' ?></a>
                     <a href="../index.php"><?= $lang['back_to_site'] ?? 'Veebilehele' ?></a>
                     <a href="../index.php?action=logout"><?= $lang['logout'] ?? 'Väljapääs' ?></a>
                 </div>

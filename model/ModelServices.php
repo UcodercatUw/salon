@@ -38,6 +38,16 @@ class ModelServices {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    // Список имён мастеров, уже назначенных на услуги (для подсказок в админке)
+    public function getMasterNames() {
+        $query = "SELECT DISTINCT master_name FROM services 
+                  WHERE master_name IS NOT NULL AND master_name <> '' 
+                  ORDER BY master_name";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+    }
+
     public function getServiceById($id) {
         $query = "SELECT s.*, c.name AS category_name 
                   FROM services s 

@@ -20,16 +20,25 @@ class ModelUser {
 
     public function createUser($name, $email, $phone, $username, $password) {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        $query = "INSERT INTO users (name, email, phone, login, password, pass, status) 
-                  VALUES (:name, :email, :phone, :username, :password, :pass, 'client')";
+
+        // В таблице users: username — отображаемое имя, login — логин для входа.
+        // Значения status ограничены enum('user','admin').
+        $query = "INSERT INTO users (username, email, phone, login, password, pass, status, registration_date) 
+                  VALUES (:username, :email, :phone, :login, :password, :pass, 'user', CURDATE())";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(":name", $name);
+        $stmt->bindParam(":username", $name);
         $stmt->bindParam(":email", $email);
         $stmt->bindParam(":phone", $phone);
-        $stmt->bindParam(":username", $username);
+        $stmt->bindParam(":login", $username);
         $stmt->bindParam(":password", $hashedPassword);
         $stmt->bindParam(":pass", $password);
-        return $stmt->execute();
+
+        try {
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            // Например, логин или email уже заняты (UNIQUE-ограничения)
+            return false;
+        }
     }
 }
 ?>

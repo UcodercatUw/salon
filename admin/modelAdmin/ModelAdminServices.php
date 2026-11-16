@@ -30,12 +30,14 @@ class ModelAdminServices {
     }
 
     // Добавить новую услугу
-    public function addService($category_id, $title, $description, $price, $duration, $image) {
-        $query = "INSERT INTO services (category_id, title, description, price, duration, image, is_active) 
-                  VALUES (:category_id, :title, :description, :price, :duration, :image, 1)";
+    public function addService($category_id, $title, $description, $price, $duration, $image, $master_name = null) {
+        $query = "INSERT INTO services (category_id, title, master_name, description, price, duration, image, is_active) 
+                  VALUES (:category_id, :title, :master_name, :description, :price, :duration, :image, 1)";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":category_id", $category_id);
         $stmt->bindParam(":title", $title);
+        $masterName = ($master_name !== null && $master_name !== '') ? $master_name : null;
+        $stmt->bindParam(":master_name", $masterName);
         $stmt->bindParam(":description", $description);
         $stmt->bindParam(":price", $price);
         $stmt->bindParam(":duration", $duration);
@@ -44,15 +46,17 @@ class ModelAdminServices {
     }
 
     // Обновить существующую услугу
-    public function updateService($id, $category_id, $title, $description, $price, $duration, $image) {
+    public function updateService($id, $category_id, $title, $description, $price, $duration, $image, $master_name = null) {
         $query = "UPDATE services 
-                  SET category_id = :category_id, title = :title, description = :description, 
-                      price = :price, duration = :duration, image = :image 
+                  SET category_id = :category_id, title = :title, master_name = :master_name, 
+                      description = :description, price = :price, duration = :duration, image = :image 
                   WHERE id = :id";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":id", $id, PDO::PARAM_INT);
         $stmt->bindParam(":category_id", $category_id);
         $stmt->bindParam(":title", $title);
+        $masterName = ($master_name !== null && $master_name !== '') ? $master_name : null;
+        $stmt->bindParam(":master_name", $masterName);
         $stmt->bindParam(":description", $description);
         $stmt->bindParam(":price", $price);
         $stmt->bindParam(":duration", $duration);
