@@ -10,6 +10,13 @@ A modern PHP (MVC) web application for beauty salon booking and service manageme
 ## ?? Tech Stack
 - PHP, MySQL, HTML5, CSS3, JavaScript
 
+## Documentation
+
+- User & admin guide (RU): [docs/USER_GUIDE.md](docs/USER_GUIDE.md)
+- User & admin guide (EN): [docs/USER_GUIDE_EN.md](docs/USER_GUIDE_EN.md)
+- Software Requirements Specification (ISO/IEC/IEEE 29148): [docs/SRS.md](docs/SRS.md)
+- UI design — mockup & prototype: [docs/DESIGN.md](docs/DESIGN.md)
+
 ## ?? Quick Start
 1. Clone or copy project files into your web server directory (xampp/htdocs/salon)
 2. Import the database schema from the config directory
