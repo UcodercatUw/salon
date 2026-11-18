@@ -21,17 +21,17 @@ class ModelUser {
     public function createUser($name, $email, $phone, $username, $password) {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
+        // Пароль хранится только как хеш: легаси-колонка pass (открытый текст) больше не заполняется.
         // В таблице users: username — отображаемое имя, login — логин для входа.
         // Значения status ограничены enum('user','admin').
-        $query = "INSERT INTO users (username, email, phone, login, password, pass, status, registration_date) 
-                  VALUES (:username, :email, :phone, :login, :password, :pass, 'user', CURRENT_DATE)";
+        $query = "INSERT INTO users (username, email, phone, login, password, status, registration_date) 
+                  VALUES (:username, :email, :phone, :login, :password, 'user', CURRENT_DATE)";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":username", $name);
         $stmt->bindParam(":email", $email);
         $stmt->bindParam(":phone", $phone);
         $stmt->bindParam(":login", $username);
         $stmt->bindParam(":password", $hashedPassword);
-        $stmt->bindParam(":pass", $password);
 
         try {
             return $stmt->execute();
@@ -39,6 +39,17 @@ class ModelUser {
             // Например, логин или email уже заняты (UNIQUE-ограничения)
             return false;
         }
+    }
+
+    // Заменить пароль пользователя (при устаревшем алгоритме хеша и при смене пароля)
+    public function updatePassword($userId, $password) {
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        $query = "UPDATE users SET password = :password WHERE id = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":password", $hashedPassword);
+        $stmt->bindParam(":id", $userId, PDO::PARAM_INT);
+        return $stmt->execute();
     }
 }
 ?>

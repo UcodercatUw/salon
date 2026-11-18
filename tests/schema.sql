@@ -14,7 +14,6 @@ CREATE TABLE `users` (
   `phone` varchar(50) DEFAULT NULL,
   `login` varchar(50) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `pass` varchar(255) DEFAULT NULL,
   `status` enum('user','admin') NOT NULL DEFAULT 'user',
   `registration_date` date NOT NULL,
   PRIMARY KEY (`id`),

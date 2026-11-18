@@ -13,7 +13,6 @@ CREATE TABLE users (
   phone TEXT,
   login TEXT NOT NULL UNIQUE,
   password TEXT NOT NULL,
-  pass TEXT,
   status TEXT NOT NULL DEFAULT 'user' CHECK (status IN ('user', 'admin')),
   registration_date TEXT NOT NULL
 );

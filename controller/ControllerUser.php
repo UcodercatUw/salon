@@ -14,16 +14,13 @@ class ControllerUser {
                 $user = $userModel->getUserByUsername($username);
 
                 if ($user) {
-                    // Проверяем пароль (хеш или прямой текст из pass)
-                    $isValid = false;
+                    // Пароль проверяется только по хешу password; открытый текст из pass не принимается.
                     if (!empty($user['password']) && password_verify($password, $user['password'])) {
-                        $isValid = true;
-                    }
-                    if (!empty($user['pass']) && $password === $user['pass']) {
-                        $isValid = true;
-                    }
+                        // Устаревший или слабый хеш пересчитываем при успешном входе.
+                        if (password_needs_rehash($user['password'], PASSWORD_DEFAULT)) {
+                            $userModel->updatePassword((int) $user['id'], $password);
+                        }
 
-                    if ($isValid) {
                         $_SESSION['user_id'] = $user['id'];
                         $_SESSION['username'] = $user['login'] ?? $user['username'];
                         $_SESSION['status'] = $user['status'] ?? 'user';
