@@ -24,7 +24,7 @@ class ModelUser {
         // В таблице users: username — отображаемое имя, login — логин для входа.
         // Значения status ограничены enum('user','admin').
         $query = "INSERT INTO users (username, email, phone, login, password, pass, status, registration_date) 
-                  VALUES (:username, :email, :phone, :login, :password, :pass, 'user', CURDATE())";
+                  VALUES (:username, :email, :phone, :login, :password, :pass, 'user', CURRENT_DATE)";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":username", $name);
         $stmt->bindParam(":email", $email);
