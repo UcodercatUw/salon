@@ -24,6 +24,8 @@ class ControllerUser {
                 if ($lockedSeconds > 0) {
                     $lockRemaining = $lockedSeconds;
                     $_SESSION['login_locked_login'] = $username;
+                    // Абсолютное время снятия блокировки, чтобы таймер пережил перезагрузку страницы.
+                    $_SESSION['login_locked_until'] = time() + $lockedSeconds;
                 } else {
                     $user = $userModel->getUserByUsername($username);
 
@@ -49,6 +51,7 @@ class ControllerUser {
                         if ($failures >= ModelLoginAttempt::MAX_ATTEMPTS) {
                             $lockRemaining = max(1, $attemptModel->isLocked($attemptKey));
                             $_SESSION['login_locked_login'] = $username;
+                            $_SESSION['login_locked_until'] = time() + $lockRemaining;
                         } else {
                             $error = $user ? 'Неверный пароль.' : 'Пользователь не найден.';
                         }
@@ -59,13 +62,19 @@ class ControllerUser {
             }
         }
 
-        // После перезагрузки формы баннер с таймером тоже должен быть виден.
+        // После перезагрузки формы баннер с таймером тоже должен быть виден,
+        // иначе обновление страницы сбрасывает обратный отсчёт на полные 15 минут.
         if ($lockRemaining <= 0 && !empty($_SESSION['login_locked_login'])) {
             $attemptModel = $attemptModel ?? new ModelLoginAttempt();
             $lockRemaining = $attemptModel->isLocked(login_attempt_key((string) $_SESSION['login_locked_login']));
 
-            if ($lockRemaining <= 0) {
+            if ($lockRemaining > 0) {
+                $attemptModelIsNew = !empty($attemptModel) && !($attemptModel instanceof ModelLoginAttempt);
+                // Восстановим остаток и абсолютное время окончания блокировки.
+                $_SESSION['login_locked_until'] = time() + $lockRemaining;
+            } else {
                 unset($_SESSION['login_locked_login']);
+                unset($_SESSION['login_locked_until']);
             }
         }
 
