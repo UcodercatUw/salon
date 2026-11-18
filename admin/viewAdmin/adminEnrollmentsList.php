@@ -40,7 +40,10 @@ ob_start();
                         <td style="padding: 12px;"><?= $item['enrollment_date'] ?></td>
                         <td style="padding: 12px;"><?= htmlspecialchars($item['status']) ?></td>
                         <td style="padding: 12px;">
-                            <a href="index.php?action=delete_enrollment&id=<?= $item['id'] ?>" onclick="return confirm('<?= $lang['confirm_delete_enrollment'] ?? 'Вы уверены, что хотите удалить эту запись?' ?>');" style="color: #ff4d6d; text-decoration: none; font-weight: 600;"><?= $lang['delete'] ?? 'Удалить' ?></a>
+                            <form method="POST" action="index.php?action=delete_enrollment&id=<?= (int) $item['id'] ?>" onsubmit="return confirm('<?= $lang['confirm_delete_enrollment'] ?? 'Вы уверены, что хотите удалить эту запись?' ?>');" style="display:inline; margin:0;">
+                                <?= csrf_field() ?>
+                                <button type="submit" style="background:none; border:0; padding:0; color:#ff4d6d; font:inherit; font-weight:600; cursor:pointer;"><?= $lang['delete'] ?? 'Удалить' ?></button>
+                            </form>
                         </td>
                     </tr>
                 <?php endforeach; ?>

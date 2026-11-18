@@ -22,6 +22,7 @@ ob_start();
     <?php endif; ?>
 
     <form method="POST" action="index.php?action=register">
+        <?= csrf_field() ?>
         <div style="margin-bottom: 15px;">
             <label style="display: block; margin-bottom: 5px; font-weight: 500;"><?= $lang['name'] ?? 'Имя' ?>:</label>
             <input type="text" name="name" required style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 4px; background: #fff;">

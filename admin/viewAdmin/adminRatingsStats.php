@@ -226,11 +226,14 @@ ob_start();
                     <span style="color: var(--text-secondary); font-size: 13px; white-space: nowrap;">
                         <?= date('d.m.Y H:i', strtotime($rr['created_at'])) ?>
                     </span>
-                    <a href="index.php?action=delete_rating&id=<?= $rr['id'] ?>" 
-                       onclick="return confirm('<?= $lang['confirm_delete_review'] ?? 'Удалить этот отзыв?' ?>')" 
-                       style="color: #e74c3c; text-decoration: none; font-size: 13px; font-weight: 600;">
-                        <?= $lang['delete'] ?? 'Удалить' ?>
-                    </a>
+                    <form method="POST" action="index.php?action=delete_rating&id=<?= (int) $rr['id'] ?>"
+                          onsubmit="return confirm('<?= $lang['confirm_delete_review'] ?? 'Удалить этот отзыв?' ?>');"
+                          style="display:inline; margin:0;">
+                        <?= csrf_field() ?>
+                        <button type="submit" style="background:none; border:0; padding:0; color:#e74c3c; font:inherit; font-size:13px; font-weight:600; cursor:pointer;">
+                            <?= $lang['delete'] ?? 'Удалить' ?>
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>

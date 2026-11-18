@@ -30,6 +30,7 @@ ob_start();
     <?php endif; ?>
 
     <form method="POST" action="index.php?action=book&id=<?= $service['id'] ?? '' ?>">
+        <?= csrf_field() ?>
         <div style="margin-bottom: 20px;">
             <label style="display: block; margin-bottom: 5px; font-weight: 500;"><?= $lang['booking_date'] ?? 'Дата и время записи' ?>:</label>
             <input type="datetime-local" name="enrollment_date" required style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 4px; background: #fff;">

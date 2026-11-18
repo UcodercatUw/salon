@@ -19,6 +19,7 @@ class ControllerAdminServices {
 
         $error = '';
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            csrf_verify();
             $category_id = $_POST['category_id'];
             $title = trim($_POST['title']);
             $description = trim($_POST['description']);
@@ -82,6 +83,7 @@ class ControllerAdminServices {
 
         $error = '';
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            csrf_verify();
             $category_id = $_POST['category_id'];
             $title = trim($_POST['title']);
             $description = trim($_POST['description']);
@@ -130,6 +132,7 @@ class ControllerAdminServices {
 
     // Удаление услуги
     public function delete($id) {
+        csrf_verify();
         if ($id > 0) {
             $model = new ModelAdminServices();
             $model->deleteService($id);

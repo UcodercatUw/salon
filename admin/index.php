@@ -3,9 +3,8 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+require_once __DIR__ . '/../inc/security.php';
+salon_start_session();
 
 // 1. Обработка переключения языков (ET, RU, EN)
 if (isset($_GET['lang']) && in_array($_GET['lang'], ['et', 'ru', 'en'])) {
@@ -47,6 +46,7 @@ switch ($action) {
         } elseif ($action === 'edit' && $id > 0) {
             $controller->edit($id);
         } elseif ($action === 'delete' && $id > 0) {
+            csrf_verify();
             $controller->delete($id);
         } else {
             $controller->index();
@@ -59,6 +59,7 @@ switch ($action) {
         $controller = new ControllerAdminClients();
         
         if ($action === 'delete_enrollment' && $id > 0) {
+            csrf_verify();
             $controller->delete($id);
         } else {
             $controller->index();
@@ -71,6 +72,7 @@ switch ($action) {
         $controller = new ControllerAdminRatings();
         
         if ($action === 'delete_rating' && $id > 0) {
+            csrf_verify();
             $controller->delete($id);
         } else {
             $controller->index();

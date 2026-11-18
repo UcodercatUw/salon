@@ -119,6 +119,7 @@ ob_start();
             </h3>
             
             <form method="POST" action="index.php?action=submit_rating" class="salon-form">
+                <?= csrf_field() ?>
                 <input type="hidden" name="service_id" value="<?= $service['id'] ?>">
                 
                 <!-- Звёздочный рейтинг -->

@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../../inc/security.php';
 require_once __DIR__ . '/../controllerAdmin/ControllerAdminServices.php';
 
 // Проверка прав доступа (доступ только для зарегистрированных пользователей с ролью admin)
@@ -28,6 +29,7 @@ switch ($action) {
         
     case 'delete':
         if ($id > 0) {
+            csrf_verify();
             $controller->delete($id);
         } else {
             header('Location: index.php');

@@ -16,6 +16,7 @@ class ControllerAdminRatings {
 
     // Удаление отзыва
     public function delete($id) {
+        csrf_verify();
         if ($id > 0) {
             $model = new ModelAdminRatings();
             $model->deleteRating($id);

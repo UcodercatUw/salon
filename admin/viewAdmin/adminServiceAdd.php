@@ -18,6 +18,7 @@ ob_start();
     <?php endif; ?>
 
     <form action="index.php?action=add" method="POST" enctype="multipart/form-data" class="salon-form">
+        <?= csrf_field() ?>
         <div>
             <label><?= $lang['category_label'] ?? 'Категория:' ?></label>
             <select name="category_id" required>

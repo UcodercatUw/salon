@@ -57,7 +57,10 @@ $getEn = $_GET; $getEn['lang'] = 'en'; $urlEn = 'index.php?' . http_build_query(
                     <a href="index.php?action=clients"><?= $lang['admin_clients'] ?? 'Kliendiandmed' ?></a>
                     <a href="index.php?action=ratings"><?= $lang['admin_ratings'] ?? 'Hinnangud' ?></a>
                     <a href="../index.php"><?= $lang['back_to_site'] ?? 'Veebilehele' ?></a>
-                    <a href="../index.php?action=logout"><?= $lang['logout'] ?? 'Väljapääs' ?></a>
+                    <form method="POST" action="../index.php?action=logout" style="display:inline; margin:0;">
+                        <?= csrf_field() ?>
+                        <button type="submit" style="background:none; border:0; padding:0; color:inherit; font:inherit; cursor:pointer;"><?= $lang['logout'] ?? 'Väljapääs' ?></button>
+                    </form>
                 </div>
             </div>
         </div>

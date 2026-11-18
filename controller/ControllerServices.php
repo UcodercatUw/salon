@@ -69,6 +69,7 @@ class ControllerServices {
 
         $error = '';
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            csrf_verify();
             $date = $_POST['enrollment_date'] ?? '';
             
             if (!empty($date)) {
@@ -106,6 +107,8 @@ class ControllerServices {
             header('Location: index.php?action=login');
             exit;
         }
+
+        csrf_verify();
 
         $serviceId = isset($_POST['service_id']) ? intval($_POST['service_id']) : 0;
         $rating = isset($_POST['rating']) ? intval($_POST['rating']) : 0;

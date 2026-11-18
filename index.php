@@ -1,5 +1,6 @@
 <?php
-session_start();
+require_once __DIR__ . '/inc/security.php';
+salon_start_session();
 define('ROOT_DIR', __DIR__);
 
 // 1. Перехват смены языка с сохранением текущей страницы

@@ -12,6 +12,7 @@ class ControllerAdminClients {
 
     // Удаление / отмена записи клиента
     public function delete($id) {
+        csrf_verify();
         if ($id > 0) {
             $model = new ModelAdminEnrollments();
             $model->deleteEnrollment($id);

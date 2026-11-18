@@ -59,7 +59,10 @@ $getEn = $_GET; $getEn['lang'] = 'en'; $urlEn = 'index.php?' . http_build_query(
                             <a href="admin/index.php"><?= $lang['admin_panel'] ?? 'Админ-панель' ?></a>
                         <?php endif; ?>
 
-                        <a href="index.php?action=logout"><?= $lang['logout'] ?? 'Выйти' ?></a>
+                        <form method="POST" action="index.php?action=logout" style="display:inline; margin:0;">
+                            <?= csrf_field() ?>
+                            <button type="submit" style="background:none; border:0; padding:0; color:inherit; font:inherit; cursor:pointer;"><?= $lang['logout'] ?? 'Выйти' ?></button>
+                        </form>
                     <?php else: ?>
                         <a href="index.php?action=login"><?= $lang['login'] ?? 'Войти' ?></a>
                         <a href="index.php?action=register"><?= $lang['register'] ?? 'Регистрация' ?></a>

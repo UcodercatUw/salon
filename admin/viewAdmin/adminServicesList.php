@@ -55,7 +55,10 @@ ob_start();
                         <td style="padding: 12px;"><?= $service['duration'] ?> <?= $lang['min'] ?? 'мин' ?></td>
                         <td style="padding: 12px;">
                             <a href="index.php?action=edit&id=<?= $service['id'] ?>" style="color: var(--primary); text-decoration: none; font-weight: 600; margin-right: 12px;"><?= $lang['edit'] ?? 'Редактировать' ?></a>
-                            <a href="index.php?action=delete&id=<?= $service['id'] ?>" onclick="return confirm('<?= $lang['confirm_delete'] ?? 'Вы уверены?' ?>');" style="color: #ff4d6d; text-decoration: none; font-weight: 600;"><?= $lang['delete'] ?? 'Удалить' ?></a>
+                            <form method="POST" action="index.php?action=delete&id=<?= (int) $service['id'] ?>" onsubmit="return confirm('<?= $lang['confirm_delete'] ?? 'Вы уверены?' ?>');" style="display:inline; margin:0;">
+                                <?= csrf_field() ?>
+                                <button type="submit" style="background:none; border:0; padding:0; color:#ff4d6d; font:inherit; font-weight:600; cursor:pointer;"><?= $lang['delete'] ?? 'Удалить' ?></button>
+                            </form>
                         </td>
                     </tr>
                 <?php endforeach; ?>

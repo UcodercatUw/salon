@@ -6,6 +6,7 @@ class ControllerUser {
     public function login() {
         $error = '';
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            csrf_verify();
             $username = trim($_POST['username'] ?? $_POST['login'] ?? '');
             $password = $_POST['password'] ?? '';
 
@@ -44,6 +45,7 @@ class ControllerUser {
     public function register() {
         $error = '';
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            csrf_verify();
             $name = trim($_POST['name'] ?? '');
             $email = trim($_POST['email'] ?? '');
             $phone = trim($_POST['phone'] ?? '');
@@ -72,6 +74,7 @@ class ControllerUser {
     }
 
     public function logout() {
+        csrf_verify();
         unset($_SESSION['user_id']);
         unset($_SESSION['username']);
         unset($_SESSION['status']);
