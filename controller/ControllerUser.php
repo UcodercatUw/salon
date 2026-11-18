@@ -1,10 +1,13 @@
 <?php
 require_once __DIR__ . '/../model/ModelUser.php';
+require_once __DIR__ . '/../model/ModelLoginAttempt.php';
 
 class ControllerUser {
 
     public function login() {
         $error = '';
+        $lockRemaining = 0;
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             csrf_verify();
             $username = trim($_POST['username'] ?? $_POST['login'] ?? '');
@@ -12,15 +15,27 @@ class ControllerUser {
 
             if (!empty($username) && !empty($password)) {
                 $userModel = new ModelUser();
-                $user = $userModel->getUserByUsername($username);
+                $attemptModel = new ModelLoginAttempt();
+                $attemptKey = login_attempt_key($username);
 
-                if ($user) {
+                // Пока блокировка активна, пароль не проверяем вообще.
+                $lockedSeconds = $attemptModel->isLocked($attemptKey);
+
+                if ($lockedSeconds > 0) {
+                    $lockRemaining = $lockedSeconds;
+                    $_SESSION['login_locked_login'] = $username;
+                } else {
+                    $user = $userModel->getUserByUsername($username);
+
                     // Пароль проверяется только по хешу password; открытый текст из pass не принимается.
-                    if (!empty($user['password']) && password_verify($password, $user['password'])) {
+                    if ($user && !empty($user['password']) && password_verify($password, $user['password'])) {
                         // Устаревший или слабый хеш пересчитываем при успешном входе.
                         if (password_needs_rehash($user['password'], PASSWORD_DEFAULT)) {
                             $userModel->updatePassword((int) $user['id'], $password);
                         }
+
+                        $attemptModel->clear($attemptKey);
+                        unset($_SESSION['login_locked_login']);
 
                         $_SESSION['user_id'] = $user['id'];
                         $_SESSION['username'] = $user['login'] ?? $user['username'];
@@ -29,13 +44,28 @@ class ControllerUser {
                         header('Location: index.php');
                         exit;
                     } else {
-                        $error = 'Неверный пароль.';
+                        $failures = $attemptModel->registerFailure($attemptKey);
+
+                        if ($failures >= ModelLoginAttempt::MAX_ATTEMPTS) {
+                            $lockRemaining = max(1, $attemptModel->isLocked($attemptKey));
+                            $_SESSION['login_locked_login'] = $username;
+                        } else {
+                            $error = $user ? 'Неверный пароль.' : 'Пользователь не найден.';
+                        }
                     }
-                } else {
-                    $error = 'Пользователь не найден.';
                 }
             } else {
                 $error = 'Пожалуйста, заполните все поля.';
+            }
+        }
+
+        // После перезагрузки формы баннер с таймером тоже должен быть виден.
+        if ($lockRemaining <= 0 && !empty($_SESSION['login_locked_login'])) {
+            $attemptModel = $attemptModel ?? new ModelLoginAttempt();
+            $lockRemaining = $attemptModel->isLocked(login_attempt_key((string) $_SESSION['login_locked_login']));
+
+            if ($lockRemaining <= 0) {
+                unset($_SESSION['login_locked_login']);
             }
         }
 

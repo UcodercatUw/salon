@@ -49,6 +49,22 @@ function csrf_field(): string
 }
 
 /**
+ * IP посетителя. Берём только REMOTE_ADDR: X-Forwarded-For подделывается клиентом.
+ */
+function salon_client_ip(): string
+{
+    return $_SERVER['REMOTE_ADDR'] ?? 'unknown';
+}
+
+/**
+ * Ключ счётчика неудачных попыток: логин + IP, в виде хеша фиксированной длины.
+ */
+function login_attempt_key(string $username): string
+{
+    return hash('sha256', strtolower(trim($username)) . '|' . salon_client_ip());
+}
+
+/**
  * Пропускает только POST-запрос с корректным CSRF-токеном.
  */
 function csrf_verify(): void

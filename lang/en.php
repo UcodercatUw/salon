@@ -48,6 +48,9 @@ return [
     'save_service' => 'Save Service',
     'back_to_list' => 'Back to List',
     'no_account' => "Don't have an account?",
+    'login_locked_title' => 'Sign-in is temporarily blocked',
+    'login_locked_text' => 'Too many failed attempts. Try again in {time}.',
+    'login_locked_done' => 'The block has been lifted — you can sign in again.',
     'already_have_account' => 'Already have an account?',
 
     // Client Enrollments

@@ -50,6 +50,13 @@ CREATE TABLE `enrollments` (
   CONSTRAINT `fk_enrollments_service` FOREIGN KEY (`course_id`) REFERENCES `services` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `login_attempts` (
+  `login_key` varchar(64) NOT NULL,
+  `attempts` int(11) NOT NULL DEFAULT 0,
+  `last_attempt` datetime NOT NULL,
+  PRIMARY KEY (`login_key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 CREATE TABLE `ratings` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,

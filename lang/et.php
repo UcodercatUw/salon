@@ -48,6 +48,9 @@ return [
     'save_service' => 'Salvesta teenus',
     'back_to_list' => 'Tagasi nimekirja',
     'no_account' => 'Pole kontot?',
+    'login_locked_title' => 'Sisselogimine on ajutiselt blokeeritud',
+    'login_locked_text' => 'Liiga palju ebaõnnestunud katseid. Proovige uuesti {time} pärast.',
+    'login_locked_done' => 'Blokeering on lõppenud — saate uuesti sisse logida.',
     'already_have_account' => 'Konto on juba olemas?',
 
     // Klientide broneeringud

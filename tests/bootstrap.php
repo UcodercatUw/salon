@@ -39,6 +39,7 @@ if (!$useMysql) {
 
 require_once __DIR__ . '/../model/ModelRating.php';
 require_once __DIR__ . '/../model/ModelUser.php';
+require_once __DIR__ . '/../model/ModelLoginAttempt.php';
 require_once __DIR__ . '/../model/ModelEnrollment.php';
 require_once __DIR__ . '/../model/ModelServices.php';
 
@@ -109,7 +110,7 @@ final class TestDb
     public static function reset(): void
     {
         $pdo = self::conn();
-        $tables = ['ratings', 'enrollments', 'services', 'users', 'categories'];
+        $tables = ['login_attempts', 'ratings', 'enrollments', 'services', 'users', 'categories'];
 
         if (self::$mysql) {
             $pdo->exec('SET FOREIGN_KEY_CHECKS = 0');
