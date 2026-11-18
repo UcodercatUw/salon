@@ -28,7 +28,11 @@ class Database {
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         } catch(PDOException $exception) {
-            echo "Ошибка подключения: " . $exception->getMessage();
+            // Подробности подключения (хост, пользователь, версия СУБД) не показываем:
+            // они уходят в лог сервера, посетитель получает общий ответ.
+            error_log('Database connection failed: ' . $exception->getMessage());
+            http_response_code(500);
+            exit('Внутренняя ошибка сервера.');
         }
         return $this->conn;
     }
